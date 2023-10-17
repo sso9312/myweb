@@ -48,6 +48,100 @@ select nvl(max(bbsno), 0)+1 from tb_bbs;
 insert into tb_bbs(bbsno,wname, subject, content, passwd, ip, grpno)
 values(bbs_seq.nextval, ?, ?, ?, ?, ?, (select nvl(max(bbsno), 0)+1 from tb_bbs));
 
+-- 전체목록
+select bbsno, wname, subject,readcnt, regdt, indent
+from  tb_bbs
+order by grpno DESC, anssnum ASC;
+
+--전체행갯수
+select count(*) as cnt from tb_bbs;
+
+--상세보기
+
+select * from tb_bbs where bbsno=?;
+
+--조회수 증가
+update tb_bbs
+set readcnt = readcnt+1
+where bbsno = ?
+
+--조회수 삭제
+--비밀번호가 일치하면 삭제
+delete from tb_bbs
+where bbsno=? and passwd=?
+
+--행수정 bbsUpdate.jsp
+update tb_bbs set wname=?, subject=?, content=?, ip=?
+where bbsno=? and passwd=?
+///////////////////////////////////
+
+● 답변쓰기 알고리즘
+
+- 새글 쓰기 : 부모글
+- 답변 쓰기 : 자식글
+
+- 그룹번호 (grpno)	  : 부모글 그룹번호와 동일하게 
+- 들여쓰기 (indent)  :	부모글 들여쓰기 +1
+- 글순서	(ansnum)  : 부모글 글순서+1 한 후, 글순서 재조정
+
+번호	 제목		 그룹번호	 들여쓰기	 글순서
+1	서울시		   1		0	  0
+	▶마포구	   1		1	  1
+	 ▶▶이대	   1		2	  2	
+	  ▶▶▶삼원타워 1			3	  3
+	   ▶▶▶▶4강의 1		4	  4
+	 ▶▶신촌	   1		2	  5
+	  ▶▶▶아이티윌 1			3	  6
+	▶강남구	   1		1	  6 -> 7 재조정
+	
+2	제주도		   2		0	  0
+	▶애월읍	   2		1	  1
+	▶서귀포	   2		1	  2
+	
+3	부산시		   3		0	  0
+
+
+--글순서 (ansnum) 재조정
+update tb_bbs 
+set ansnum = ansnum+1
+where grpno = ? and ansnum>=?
+
+//////////////////////////////////////////////////////////
+
+● [검색]
+
+-- 제목+내용에서 '파스타'가 있는지 검색
+where subject like '%파스타%' or content like '%파스타%'
+
+-- 제목에서 '파스타'가 있는지 검색
+where subject like '%파스타%'
+
+-- 내용에서 '파스타'가 있는지 검색
+where content like '%파스타%'
+
+-- 작성자에서 '파스타'가 있는지 검색
+where wname like '%파스타%'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

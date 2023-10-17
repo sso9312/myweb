@@ -5,9 +5,18 @@
 <%@ include file="../header.jsp" %>
 
 
-<!-- 본문 시작 template.jsp -->
+<!-- 본문 시작 bbsUpdateProc.jsp -->
+<!--  수정 요청한 ㅈㅇ보를 가져와서, DB에 가서 행 수정하기 -->
+<h3>* 글 수정 *</h3>
+<p>
+	<a href="bbsForm.jsp">[글쓰기]</a>
+	&nbsp;&nbsp;
+	<a href="bbsList.jsp">[글목록]</a>
+	
+</p>
 <%
-	//사용자가 입력 요청한 정보를 가져오기
+	//수정 요청한 정보 가져오기
+	int bbsno=Integer.parseInt(request.getParameter("bbsno"));
 	String wname	=request.getParameter("wname").trim();
 	String subject	=request.getParameter("subject").trim();
 	String content	=request.getParameter("content").trim();
@@ -15,6 +24,7 @@
 	String ip		=request.getRemoteAddr();//요청PC의 IP
 	
 	//dto객체에 담기
+	dto.setBbsno(bbsno);
 	dto.setWname(wname);
 	dto.setSubject(subject);
 	dto.setContent(content);
@@ -23,16 +33,20 @@
 	
 	int cnt = dao.create(dto);
 	if(cnt==0){
-		out.println("<p>글추가 실패했습니다!!</p>");
+		out.println("<p>비밀번호가 일치하지 않습니다</p>");
 		out.println("<p><a href='javascript:history.back()'[다시시도]</a></p>");
 	}else{
 		out.println("<script>");
-		out.println("	alert('게시글이 추가되었습니다~');");
+		out.println("	alert('게시글이 수정되었습니다~');");
 		out.println(" 	location.href='bbsList.jsp';");//목록페이지 이동
 		out.println("</script>");
 	}//if end
-	
+
+
 %>
+
+
+
 <!-- 본문 끝 -->
  
  
