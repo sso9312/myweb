@@ -62,7 +62,7 @@
 	}//if end
  }//pwCheck()
  
-function searchCheak(){// 검색어를 입력해야만 서버로 전송
+function searchCheck(){// 검색어를 입력해야만 서버로 전송
 	let word=document.getElementById("word").value; 
     word=word.trim();
     if(word.length==0){

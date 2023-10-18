@@ -122,23 +122,99 @@ where content like '%파스타%'
 -- 작성자에서 '파스타'가 있는지 검색
 where wname like '%파스타%'
 
+///////////////////////////////////////
+
+
+--출력 줄수
+set pagesize 100;
+--한줄 출력 글자갯수
+set linesize 100;
+--칼럼길이 10칸 임시 조정
+col wname for a10;
+col subject for a30;
+
+● [페이징] - rownum 줄번호 활용
+
+1)
+select bbsno, subject, wname, readcnt, indent, regdt
+from tb_bbs
+order by grpno desc, ansnum asc;
+
+2) rownum추가 - 
+select bbsno, subject, wname, readcnt, indent, regdt, rownum
+from tb_bbs
+order by grpno desc, ansnum asc;
+
+3) 1)의 SQL문을 셀프조인하고, rownum 추가
+select bbsno, subject, wname, readcnt, indent, regdt, rownum
+from (
+		select bbsno, subject, wname, readcnt, indent, regdt
+		from tb_bbs
+		order by grpno desc, ansnum asc
+	  );
+
+4) 줄번호 1~10조회 (1페이지)
+select bbsno, subject, wname, readcnt, indent, regdt, rownum
+from (
+		select bbsno, subject, wname, readcnt, indent, regdt
+		from tb_bbs
+		order by grpno desc, ansnum asc
+	  )
+where rownum>=1 and rownum<=10;
 
 
 
+5) 줄번호 11~20조회 (2페이지) ->조회안됨, 선택된 레코드가 없습니다
+select bbsno, subject, wname, readcnt, indent, regdt, rownum
+from (
+		select bbsno, subject, wname, readcnt, indent, regdt
+		from tb_bbs
+		order by grpno desc, ansnum asc
+	  )
+where rownum>=11 and rownum<=20;
 
 
+6) 줄번호가 있는 3)의 테이블을 한번 더 셀프조인하고, rownum칼럼명을 r로 바꾼다
+select * 
+from (
+	select bbsno, subject, wname, readcnt, indent, regdt, rownum as r
+	from (
+			select bbsno, subject, wname, readcnt, indent, regdt
+			from tb_bbs
+			order by grpno desc, ansnum asc
+			)
+	 )
+where r>=11 and r<=20;
+
+7) 페이징 + 검색
+	예) 제목에서 '파스타'가 있는 행을 검색해서 2페이지(11행~20행) 조회하시오
+select * 
+from (
+	select bbsno, subject, wname, readcnt, indent, regdt, rownum as r
+	from (
+			select bbsno, subject, wname, readcnt, indent, regdt
+			from tb_bbs
+			where subject like '%파스타%'
+			order by grpno desc, ansnum asc
+			)
+	 )
+where r>=11 and r<=20;
 
 
+//////////////////////////////////////////////
+● [과제] 제목과 댓글(자식글)의 갯수를 조회하시오
 
-
-
-
-
-
-
-
-
-
+	제목
+	-------------
+	대한민국 (3)
+	서울특별시 (5)
+	오필승코리아
+	무궁화 꽃이 피었습니다(2)
+	
+	
+	
+	
+	
 
 
 
