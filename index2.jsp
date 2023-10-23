@@ -41,7 +41,7 @@
 <!-- Content 시작 -->
 <!-- First Container 시작 -->
 <div class="container-fluid bg-1 text-center">
-    <img src="../images/cosmos1.jpg" class="img-responsive img-circle margin" style="display:inline" alt="코스모스" width="50%">
+    <img src="../images/밤하늘.jpeg" class="img-responsive img-circle margin" style="display:inline" alt="코스모스" width="50%">
 </div><!-- First Container 끝-->
 
 <!-- Second Container -->

@@ -8,14 +8,14 @@
 
 <span style="color:red; font-weight: bold">* 필수입력</span>
 <br>
-
-<form>
+																			<!-- myscript.js -->																		
+<form name="memfrm" id="memfrm" method="post" action="memberProc.jsp" onsubmit="return memberCheck()">
 <table class="table">
 <tr>
     <th>*아이디</th>
     <td style="text-align: left">
     	<input type="text" name="id" id="id" size="10" maxlength="10" readonly>
-    	<input type="button" value="ID중복확인">
+    	<input type="button" value="ID중복확인" onclick="idCheck()"><!-- myscript.js -->
     </td>
 </tr>
 <tr>
@@ -40,7 +40,7 @@
     <th>*이메일</th>
     <td style="text-align: left">
     	<input type="text" name="email" id="email" size="10" maxlength="50" readonly>
-    	<input type="button" value="Email중복확인">
+    	<input type="button" value="Email중복확인" onclick="emailCheck()"><!-- myscript.js -->
     </td>
 </tr>
 <tr>
