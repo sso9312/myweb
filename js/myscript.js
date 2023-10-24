@@ -147,7 +147,12 @@ function memberCheck(){//회원가입 유효성 검사
 		return false;		
 	}//if end    
     //3)비밀번호와 비밀번호확인이 서로 일치하는지?
-
+	let repasswd=document.getElementById("repasswd").value;
+	repasswd=repasswd.trim();
+	if(repasswd != passwd){
+		alert("비밀번호가 일치하지 않스니다.");
+		document.getElementById("repasswd").focus();
+		return false;	
     //4)이름 두글자 이상 인지?
 	let mname=document.getElementById("mname").value;
 	mname=mname.trim();                               
@@ -157,32 +162,26 @@ function memberCheck(){//회원가입 유효성 검사
     	return false;                                 
 	}//if end  
     //5)이메일 5글자 인지?
-	function blankCheck() {
-			let email=document.getElementById("email").value;
-			email=email.trim();
-			if(email.length<5){
-				alert("이메일은 5글자 이내로 입력해 주세요");
-				return false;
-			}//if end
-			
-			return true;
-		
-		}//blankCheck() end
+	
+	let email=document.getElementById("email").value;
+	email=email.trim();
+	if(email.length<5){
+		alert("이메일은 5글자 이내로 입력해 주세요");
+	document.getElementById("email").focus(); 
+		return false;
+	}//if end
+	
+	return true;
+}
+
     //6)직업을 선택했는지?
- 
- 
-	 
- }//memberCheck() end
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+	let job = document.getElementById("job").value;
+	job=job.trim();
+	if(job == "0" || job == null){
+		alert("직업을 선택해 주세요.");
+	document.getElementById("job").focus(); 
+		return false;
+	}//if end
+	
+	return true;
+}	
