@@ -185,3 +185,35 @@ function memberCheck(){//회원가입 유효성 검사
 	
 	return true;
 }	
+
+function findIDCheck(){///아이디/비번찾기 유효성 검사
+	//1)이름 두글자 이상 인지?
+	let mname=document.getElementById("mname").value;
+	mname=mname.trim();                               
+	if(mname.length<2){
+	    alert("이름 2글자 이상 입력해 주세요");
+    	document.getElementById("mname").focus();    
+    	return false;                                 
+	}//if end  
+    //2)이메일 5글자 인지?
+	
+	let email=document.getElementById("email").value;
+	email=email.trim();
+	if(email.length<5){
+		alert("이메일은 5글자 이내로 입력해 주세요");
+	document.getElementById("email").focus(); 
+		return false;
+	}//if end
+	
+	return true;
+
+}//findIDCheck() end
+
+
+
+
+
+
+
+
+
