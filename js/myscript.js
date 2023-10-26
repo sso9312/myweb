@@ -209,7 +209,54 @@ function findIDCheck(){///아이디/비번찾기 유효성 검사
 
 }//findIDCheck() end
 
+ function pdsCheck(){//포토 갤러리 유효성 검사
+	
+	//1)이름
+	let wname=document.getElementById("wname").value;
+	wname=wname.trim();                               
+	if(wname.length<2){
+		   alert("이름 2글자 이상 입력해 주세요");
+	    document.getElementById("wname").focus();    
+	    return false;                                 
+	}//if end  
+	//2)제목
+	let subject=document.getElementById("subject").value;
+	subject=subject.trim();                               
+	if(subject.length<2){
+		   alert("제목 2글자 이상 입력해 주세요");
+	    document.getElementById("subject").focus();    
+	    return false;                                 
+	}//if end  
+	//3)비밀번호
+	let passwd=document.getElementById("passwd").value;
+	passwd=passwd.trim();
+	if(!(passwd.length>=5 && passwd.length<=10)){
+		alert("비밀번호 5~10글자이내 입력해 주세요");
+		document.getElementById("passwd").focus();
+		return false;		
+	}//if end 
+	//4)첨부파일
+	// ->파일의 확장명이 이미지 파일(png, jpg, gif)인지 확인하시오
+	let filename = document.getElementById("filename").value; //예sky.png
+	filename=filename.trim();
+	if(filename.length==0){
+		alert("첨부 파일 선택하세요~");
+		return false;
+	}else{
+		let dot=filename.lastIndexOf("."); //filename 변수값에서 마지막 .의 순서값
+		let ext=filename.substr(dot+1);	//확장명 : 마지막 . 이후 문자열 자르기
+		ext=ext.toLowerCase();			//확장명을 전부 소문자 치환
+	
 
+		if(ext=="png" || ext=="jpg" || ext=="gif" ){
+			return true;
+		}else{
+			alert("이미지 파일만 업로드 가능합니다~");
+			return false;
+		}//if end
+	}//if end
+
+}// pdsCheck() end
 
 
 
